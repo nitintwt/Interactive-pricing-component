@@ -1,57 +1,103 @@
-import React from "react";
+import React, {useState} from "react";
+import ToggleButton from "./Toggle";
 
 function Card() {
+  const [yearly , setyearly]= useState(false)
+  const [views , setViews]= useState(1)
+
+  const toggleHandler =()=>{
+    setyearly(!yearly)
+  }
+
+  const pricingData = {
+    1: {
+      pageviews: "10K",
+      monthly: 8,
+      yearly: 72,
+    },
+    2: {
+      pageviews: "50k",
+      monthly: 12,
+      yearly: 108,
+    },
+    3: {
+      pageviews: "100K",
+      monthly: 16,
+      yearly: 144,
+    },
+    4: {
+      pageviews: "500k",
+      monthly: 24,
+      yearly: 216,
+    },
+    5: {
+      pageviews: "1M",
+      monthly: 36,
+      yearly: 324,
+    },
+  };
+
   return (
-    <div className="h-screen flex items-center justify-center ">
-    <div className="bg-white p-10 rounded-lg shadow-lg max-w-[550px] w-full">
-      <div className="mt-8">
-        <div className="flex justify-between ">
-          <span className="text-paracustom font-bold">100K PAGEVIEWS</span>
-          <span className="text-3xl font-bold text-headcustom ">
-            $16.00 <span className="text- text-paracustom">/ month</span>
-          </span>
+    <div className="h-screen flex items-center justify-center">
+      <div className="bg-white p-10 rounded-lg shadow-lg max-w-[550px] w-full">
+        <div className="mt-8">
+          <div className="flex justify-between">
+            <span className="text-paracustom font-bold mt-3">{pricingData[views]?.pageviews} PAGEVIEWS</span>
+            {yearly ? (
+            <span className="text-4xl font-bold text-headcustom ">
+              ${pricingData[views]?.yearly} <span className="text-paracustom text-xl">/ year</span>
+            </span>
+            ):(
+            <span className="text-4xl font-bold text-headcustom ">
+              ${pricingData[views]?.monthly} <span className="text-paracustom text-xl">/ month</span>
+            </span>
+            )}
+          </div>
+          <input
+            type="range"
+            min="1"
+            max="5"
+            value={views}
+            onChange={(e) => setViews(Number(e.target.value))}
+            className="appearance-none w-full h-4 mt-10 rounded-full outline-none cursor-pointer z-10"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${
+                yearly ? "hsl(174, 77%, 80%)" : "hsl(174, 77%, 80%) 0%, hsl(174, 77%, 80%)"
+              } ${Math.max((views - 1) * 25, 0)}%, #d3d3d3 ${Math.max((views - 1) * 25, 0)}%, #d3d3d3 100%)`,
+            }}
+          />
         </div>
-        <input
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-6"
-          max="100"
-          min="1"
-          type="range"
-          value="50"
-        />
-      </div>
-      <div className="flex justify-between items-center mt-4">
-        <div className="flex items-center">
-          <div className=" text-paracustom mr-4">Monthly Billing</div>
-          <button>Toggle</button>
-          <div className=" text-paracustom">Yearly Billing</div>
-          <div className="ml-2" variant="secondary">
-            25% discount
+        <div className="flex justify-between items-center mt-10">
+          <div className="flex ml-12">
+            <div className="text-paracustom mr-4">Monthly Billing</div>
+            <div className={`toggle-container mr-4 relative w-12 h-7 rounded-full p-1 ${yearly ? 'bg-sliderbg' : 'bg-gray-400'}`} onClick={toggleHandler}>
+              <div className={`toggle-switch absolute  left-1 w-5 h-5 bg-white rounded-full transition-transform transform ${yearly ? 'translate-x-full' : ''}`}></div>
+            </div>  
+            <div className="text-paracustom mr-4">Yearly Billing</div>
+            <div className="ml-2 text-discountext " >25% discount</div>
           </div>
         </div>
-      </div>
-      <div className="mt-8">
-        <ul className="list-none space-y-2">
-          <li className="flex items-center">
-            <CheckIcon className="text-[#10b981] mr-2" />
-            <span className="text-paracustom">Unlimited websites</span>
-          </li>
-          <li className="flex items-center">
-            <CheckIcon className="text-[#10b981] mr-2" />
-            <span className="text-paracustom">100% data ownership</span>
-          </li>
-          <li className="flex items-center">
-            <CheckIcon className="text-[#10b981] mr-2" />
-            <span className="text-paracustom">Email reports</span>
-          </li>
-        </ul>
-      </div>
-      <div className="mt-8">
-        <button className="w-full bg-headcustom text-white">Start my trial</button>
+        <div className="mt-8">
+          <ul className="list-none space-y-2">
+            <li className="flex items-center">
+              <CheckIcon className="text-[#10b981] mr-2" />
+              <span className="text-paracustom">Unlimited websites</span>
+            </li>
+            <li className="flex items-center">
+              <CheckIcon className="text-[#10b981] mr-2" />
+              <span className="text-paracustom">100% data ownership</span>
+            </li>
+            <li className="flex items-center">
+              <CheckIcon className="text-[#10b981] mr-2" />
+              <span className="text-paracustom">Email reports</span>
+            </li>
+          </ul>
+        </div>
+        <div className="mt-8">
+          <button className="w-full bg-headcustom text-white rounded-full py-3">Start my trial</button>
+        </div>
       </div>
     </div>
-  </div>
-
-
   );
 }
 
