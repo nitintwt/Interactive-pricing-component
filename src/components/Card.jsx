@@ -47,13 +47,13 @@ function Card() {
   return (
     <Fragment>
     <div className="flex justify-center   m-3 ">
-      <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg max-w-lg w-full ">
+      <div className="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-lg shadow-lg max-w-lg w-full ">
         <div className="mt-4 md:mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <span className="text-paracustom font-bold mt-3">
               {pricingData[views]?.pageviews} PAGEVIEWS
             </span>
-            <span className="text-4xl font-bold text-headcustom mt-2 md:mt-0 ">
+            <span className="text-4xl font-bold text-headcustom dark:text-white mt-2 md:mt-0 ">
               ${yearly ? ((pricingData[views]?.monthly *12) * 0.75)
               : (pricingData[views]?.monthly)}
               <span className="text-paracustom text-xl">
