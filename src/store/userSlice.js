@@ -11,10 +11,9 @@ const userSlice = createSlice ({
   initialState,
   reducers:{
     userTrial:(state , action) =>{
-      const { yearly, pageviews } = action.payload;
       state.userTrial = true;
-      state.yearly = yearly;
-      state.views = pageviews;
+      state.yearly = action.payload;
+      state.views = action.payload;
     }
   }
 })
